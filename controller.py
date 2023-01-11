@@ -79,6 +79,26 @@ class BenchTopStepperController:
         channel = self.get_channel(channel)
         return Decimal.ToDouble(channel.DevicePosition)
 
+    def linear_move(self, x, y):
+        xm = self.get_channel(1)
+        xm.MoveTo(Decimal(x), 0)
+        ym = self.get_channel(2)
+        ym.MoveTo(Decimal(y), 0)
+
+    def home(self):
+        for i in range(3):
+            channel = self.get_channel(i+1)
+            channel.Home(0)
+
+    def move_absolute(self, axis, pos):
+        m = self.get_channel(axis)
+        m.MoveTo(Decimal(pos), 0)
+
+    def move_relative(self, axis, pos):
+        m = self.get_channel(axis)
+        m.SetMoveRelativeDistance(Decimal(pos))
+        m.MoveRelative(0)
+
 
 def get_controller(serial_number):
     controller = BenchTopStepperController(str(serial_number))

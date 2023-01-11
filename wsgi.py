@@ -13,22 +13,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ===============================================================================
-import os.path
-
 from flask import Flask
 import sys, os
 
 sys.path.append(os.path.dirname(__file__))
 
 import kinesis
+
 kinesis.init(r'C:\Program Files\Thorlabs\Kinesis')
 
 from controller import get_controller
 
-
 app = Flask(__name__)
 
-controller = get_controller(70206084)
+
+CONTROLLER_SERIAL_NUMBER = os.environ.get('KINESIS_SN', '70206084')
+
+controller = get_controller(CONTROLLER_SERIAL_NUMBER)
+
 
 @app.route('/position/<int:axis>')
 def get_position(axis):
@@ -40,8 +42,31 @@ def get_position(axis):
 def get_positions():
     resp = {}
     for i in range(3):
-        axis = i+1
+        axis = i + 1
         resp[axis] = {'position': controller.get_position(axis)}
     return resp
 
+
+@app.route('/linear_move/<float: x>/<float: y>', methods=['POST'])
+def linear_move(x, y):
+    controller.linear_move(x, y)
+    return {'status': 'OK'}
+
+
+@app.route('/move_absolute/<int: axis>/<float: pos>', methods=['POST'])
+def move_absolute(axis, pos):
+    controller.move_absolute(axis, pos)
+    return {'status': 'OK'}
+
+
+@app.route('/move_relative/<int: axis>/<float: pos>', methods=['POST'])
+def move_relative(axis, pos):
+    controller.move_relative(axis, pos)
+    return {'status': 'OK'}
+
+
+@app.route('/home', methods=['POST'])
+def home():
+    controller.home()
+    return {'status': 'OK'}
 # ============= EOF =============================================
