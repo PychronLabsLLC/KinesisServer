@@ -73,7 +73,7 @@ class BenchTopStepperController:
             channel.EnableDevice()
             time.sleep(ENABLE_SLEEP_TIME)
 
-            channel.LoadMotorConfiguration(self.serial_number)
+            channel.LoadMotorConfiguration(channel.DeviceID)
 
     def get_position(self, channel):
         channel = self.get_channel(channel)

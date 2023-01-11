@@ -13,7 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ===============================================================================
+import os.path
+
 from flask import Flask
+import sys, os
+
+sys.path.append(os.path.dirname(__file__))
+
 import kinesis
 from controller import get_controller
 
@@ -35,5 +41,6 @@ def get_positions():
     for i in range(3):
         axis = i+1
         resp[axis] = {'position': controller.get_position(axis)}
+    return resp
 
 # ============= EOF =============================================
