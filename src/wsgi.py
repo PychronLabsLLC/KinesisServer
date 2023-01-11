@@ -15,8 +15,8 @@
 # ===============================================================================
 
 from flask import Flask
-
-src.kinesis.init(r'C:\Program Files\Thorlabs\Kinesis')
+from src import kinesis
+kinesis.init(r'C:\Program Files\Thorlabs\Kinesis')
 
 from src.controller import get_controller
 
