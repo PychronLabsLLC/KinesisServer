@@ -13,11 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ===============================================================================
+from flask import Flask
+import kinesis
+from controller import get_controller
 
-from app import create_app
-from app.controller import get_controller
+kinesis.init(r'C:\Program Files\Thorlabs\Kinesis')
 
-app = create_app("")
+app = Flask(__name__)
+
 controller = get_controller(70206084)
 
 @app.route('/position/<int:axis>')

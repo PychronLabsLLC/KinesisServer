@@ -14,14 +14,6 @@
 # limitations under the License.
 # ===============================================================================
 
-from flask import Flask
-from app import kinesis
-kinesis.init(r'C:\Program Files\Thorlabs\Kinesis')
-
-def create_app(config):
-    app = Flask(__name__)
-    # app.config.from_pyfile(config_filename)
-    return app
 
 
 

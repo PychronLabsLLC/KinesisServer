@@ -18,10 +18,10 @@ import clr, time
 POLLING_INTERVAL = 250
 ENABLE_SLEEP_TIME = 0.1
 
-from app import kinesis
+import kinesis
+
 kinesis.check_import()
 
-from System import String
 from System import Decimal
 
 clr.AddReference('System.Collections')
@@ -29,9 +29,7 @@ clr.AddReference('System.Collections')
 clr.AddReference("Thorlabs.MotionControl.GenericMotorCLI")
 clr.AddReference("Thorlabs.MotionControl.DeviceManagerCLI")
 
-import Thorlabs.MotionControl.DeviceManagerCLI
 from Thorlabs.MotionControl.DeviceManagerCLI import DeviceManagerCLI
-import Thorlabs.MotionControl.GenericMotorCLI
 
 
 class BenchTopStepperController:
