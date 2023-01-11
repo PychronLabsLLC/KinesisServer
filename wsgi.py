@@ -21,9 +21,10 @@ import sys, os
 sys.path.append(os.path.dirname(__file__))
 
 import kinesis
+kinesis.init(r'C:\Program Files\Thorlabs\Kinesis')
+
 from controller import get_controller
 
-kinesis.init(r'C:\Program Files\Thorlabs\Kinesis')
 
 app = Flask(__name__)
 
