@@ -13,32 +13,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ===============================================================================
+import os, sys, clr
 
-from flask import Flask
+THORLABS_KINESIS_CONTROL_DLL_FILENAME = 'Thorlabs.MotionControl.Controls.dll'
 
-src.kinesis.init(r'C:\Program Files\Thorlabs\Kinesis')
-
-from src.controller import get_controller
-
-app = Flask(__name__)
-
-controller = get_controller(70206084)
-
-@app.route('/position/<int:axis>')
-def get_position(axis):
-    resp = {axis: {'position': controller.get_position(axis)}}
-    return resp
+this = sys.modules[__name__]
+this.PATH_SET = False
 
 
-@app.route('/positions')
-def get_positions():
-    resp = {}
-    for i in range(3):
-        axis = i+1
-        resp[axis] = {'position': controller.get_position(axis)}
+def check_import():
+    if not this.PATH_SET:
+        raise ImportError('Must initialize before importing this package. Use py_thorlabs_ctrl.kinesis.init(path)')
 
 
-if __name__ == '__main__':
-    app.run()
+def init(path):
+    if os.path.isdir(path):
+        if os.path.exists(os.path.join(path, THORLABS_KINESIS_CONTROL_DLL_FILENAME)):
+            sys.path.append(path)
+            this.PATH_SET = True
+        else:
+            raise ImportError('Cannot find .NET controls')
+    else:
+        raise ImportError('Path does not exist')
+
+    clr.AddReference('System.Collections')
+
+    clr.AddReference("Thorlabs.MotionControl.Controls")
+    import Thorlabs.MotionControl.Controls
 
 # ============= EOF =============================================

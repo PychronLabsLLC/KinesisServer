@@ -18,7 +18,7 @@ import clr, time
 POLLING_INTERVAL = 250
 ENABLE_SLEEP_TIME = 0.1
 
-py_thorlabs_ctrl.kinesis.check_import()
+src.kinesis.check_import()
 
 from System import String
 from System import Decimal
