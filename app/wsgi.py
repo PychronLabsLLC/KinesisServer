@@ -15,10 +15,10 @@
 # ===============================================================================
 
 from flask import Flask
-import kinesis
+from app import kinesis
 kinesis.init(r'C:\Program Files\Thorlabs\Kinesis')
 
-from src.controller import get_controller
+from app.controller import get_controller
 
 app = Flask(__name__)
 
