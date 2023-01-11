@@ -18,7 +18,7 @@ import clr, time
 POLLING_INTERVAL = 250
 ENABLE_SLEEP_TIME = 0.1
 
-from src import kinesis
+import kinesis
 kinesis.check_import()
 
 from System import String
