@@ -14,16 +14,23 @@
 # limitations under the License.
 # ===============================================================================
 
-from flask import Flask
-from app import kinesis
-kinesis.init(r'C:\Program Files\Thorlabs\Kinesis')
+from app import create_app
+from app.controller import get_controller
 
-def create_app(config):
-    app = Flask(__name__)
-    # app.config.from_pyfile(config_filename)
-    return app
+app = create_app("")
+controller = get_controller(70206084)
+
+@app.route('/position/<int:axis>')
+def get_position(axis):
+    resp = {axis: {'position': controller.get_position(axis)}}
+    return resp
 
 
-
+@app.route('/positions')
+def get_positions():
+    resp = {}
+    for i in range(3):
+        axis = i+1
+        resp[axis] = {'position': controller.get_position(axis)}
 
 # ============= EOF =============================================
