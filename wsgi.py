@@ -47,19 +47,19 @@ def get_positions():
     return resp
 
 
-@app.route('/linear_move/<float: x>/<float: y>', methods=['POST'])
+@app.route('/linear_move/<float:x>/<float:y>', methods=['POST'])
 def linear_move(x, y):
     controller.linear_move(x, y)
     return {'status': 'OK'}
 
 
-@app.route('/move_absolute/<int: axis>/<float: pos>', methods=['POST'])
+@app.route('/move_absolute/<int:axis>/<float:pos>', methods=['POST'])
 def move_absolute(axis, pos):
     controller.move_absolute(axis, pos)
     return {'status': 'OK'}
 
 
-@app.route('/move_relative/<int: axis>/<float: pos>', methods=['POST'])
+@app.route('/move_relative/<int:axis>/<float:pos>', methods=['POST'])
 def move_relative(axis, pos):
     controller.move_relative(axis, pos)
     return {'status': 'OK'}
