@@ -21,7 +21,7 @@ python -m venv .
 ```
 4. Activate your python environment
 ```
-source venv/bin/activate
+source ./venv/bin/activate
 ```
 5. install dependencies into the enviroment
 ```
